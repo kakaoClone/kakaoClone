@@ -17,5 +17,5 @@ public class ChatRoom {
 
     @ManyToMany
     @JoinColumn(nullable = false)
-    List<Member> memberList;
+    private List<Member> memberList;
 }
