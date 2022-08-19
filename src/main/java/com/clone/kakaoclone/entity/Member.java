@@ -25,8 +25,8 @@ public class Member extends Timestamped{
     @Column
     private String imgUrl;
 
-    @OneToMany(mappedBy = "friend")
-    List<Member> friendList = new ArrayList<>();
+//    @OneToMany(mappedBy = "friend")
+//    List<Member> friendList = new ArrayList<>();
 
     @ManyToMany
     List<ChatRoom> chatRooms = new ArrayList<>();
