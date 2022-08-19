@@ -25,9 +25,14 @@ public class Member extends Timestamped{
     @Column
     private String imgUrl;
 
-//    @OneToMany(mappedBy = "friend")
-//    List<Member> friendList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "friendId")
+    private Member friend;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @Column
+    private List<Member> friendList = new ArrayList<>();
 
     @ManyToMany
-    List<ChatRoom> chatRooms = new ArrayList<>();
+    private List<ChatRoom> chatRooms = new ArrayList<>();
 }
