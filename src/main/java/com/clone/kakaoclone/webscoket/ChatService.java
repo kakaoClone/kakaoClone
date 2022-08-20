@@ -1,6 +1,5 @@
-package com.clone.kakaoclone.service;
+package com.clone.kakaoclone.webscoket;
 
-import com.clone.kakaoclone.dto.request.ChatRoomDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

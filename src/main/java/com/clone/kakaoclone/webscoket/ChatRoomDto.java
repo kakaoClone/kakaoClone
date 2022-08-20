@@ -1,6 +1,5 @@
-package com.clone.kakaoclone.dto.request;
+package com.clone.kakaoclone.webscoket;
 
-import com.clone.kakaoclone.service.ChatService;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.socket.WebSocketSession;

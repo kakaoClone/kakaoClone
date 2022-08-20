@@ -1,4 +1,4 @@
-package com.clone.kakaoclone.dto.request;
+package com.clone.kakaoclone.webscoket;
 
 import lombok.Getter;
 import lombok.Setter;

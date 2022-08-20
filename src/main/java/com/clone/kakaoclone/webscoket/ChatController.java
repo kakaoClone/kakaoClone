@@ -1,7 +1,7 @@
-package com.clone.kakaoclone.controller;
+package com.clone.kakaoclone.webscoket;
 
-import com.clone.kakaoclone.dto.request.ChatRoomDto;
-import com.clone.kakaoclone.service.ChatService;
+import com.clone.kakaoclone.webscoket.ChatRoomDto;
+import com.clone.kakaoclone.webscoket.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

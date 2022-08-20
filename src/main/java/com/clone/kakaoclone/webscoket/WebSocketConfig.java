@@ -1,6 +1,6 @@
-package com.clone.kakaoclone.config;
+package com.clone.kakaoclone.webscoket;
 
-import com.clone.kakaoclone.handler.WebSocketChatHandler;
+import com.clone.kakaoclone.webscoket.WebSocketChatHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;

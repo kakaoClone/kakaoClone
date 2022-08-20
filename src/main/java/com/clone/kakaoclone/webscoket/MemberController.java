@@ -1,4 +1,4 @@
-package com.clone.kakaoclone.controller;
+package com.clone.kakaoclone.webscoket;
 
 public class MemberController {
 }
