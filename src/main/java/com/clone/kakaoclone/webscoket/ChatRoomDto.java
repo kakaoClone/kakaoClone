@@ -1,13 +1,17 @@
 package com.clone.kakaoclone.webscoket;
 
+import com.clone.kakaoclone.entity.ChatRoom;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
+@Setter
 //채팅방 구현을 위한 dto 채팅방은 입장한 클라의 정보를 가지고 있어야하므로 WebSocketSession정보 리스트를 맴버필드로 가짐
 //나머지는 채팅방id와 채팅방 이름
 //채팅방에서는 입장,대화하기등의 기능이 있어 handleAction을 통해 분기처리
@@ -15,21 +19,30 @@ import java.util.Set;
 public class ChatRoomDto {
     private String roomId;
     private String name;
-    private Set<WebSocketSession> sessions = new HashSet<>();
+//    private Set<WebSocketSession> sessions = new HashSet<>();
+//    @Builder
+//    public ChatRoomDto(String roomId, String name){
+//        this.roomId = roomId;
+//        this.name = name;
+//    }
+//    public void handleActions(WebSocketSession session, ChatMessageDto chatMessageDto, ChatService chatService){
+//        if(chatMessageDto.getType().equals(ChatMessageDto.MessageType.ENTER)){
+//            sessions.add(session);
+//            chatMessageDto.setMessage(chatMessageDto.getSender() + "님이 입장했습니다.");
+//        }
+//        sendMessage(chatMessageDto,chatService);
+//    }
+//    public <T> void sendMessage(T message, ChatService chatService){
+//        sessions.parallelStream().forEach(session -> chatService.sendMessage(session,message));
+//    }
 
-    @Builder
-    public ChatRoomDto(String roomId, String name){
-        this.roomId = roomId;
-        this.name = name;
-    }
-    public void handleActions(WebSocketSession session, ChatMessageDto chatMessageDto, ChatService chatService){
-        if(chatMessageDto.getType().equals(ChatMessageDto.MessageType.ENTER)){
-            sessions.add(session);
-            chatMessageDto.setMessage(chatMessageDto.getSender() + "님이 입장했습니다.");
-        }
-        sendMessage(chatMessageDto,chatService);
-    }
-    public <T> void sendMessage(T message, ChatService chatService){
-        sessions.parallelStream().forEach(session -> chatService.sendMessage(session,message));
+    //pub-sub 방식으로 인해 코드의 간결화
+    //1. 구독자 관리의 자동화로 웹소켓 세션 관리가 필요 없이짐
+    //2. 발송의 구현도 알서 해결되므로 클라에게 메시지를 발송하는 구현이 필요 없어집니다.
+    public static ChatRoomDto create(String name) {
+        ChatRoomDto chatRoomDto = new ChatRoomDto();
+        chatRoomDto.roomId = UUID.randomUUID().toString();
+        chatRoomDto.name = name;
+        return chatRoomDto;
     }
 }
