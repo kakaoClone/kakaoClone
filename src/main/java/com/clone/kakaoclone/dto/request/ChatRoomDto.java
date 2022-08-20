@@ -28,7 +28,7 @@ public class ChatRoomDto {
             sessions.add(session);
             chatMessageDto.setMessage(chatMessageDto.getSender() + "님이 입장했습니다.");
         }
-        sendMessage(chatMessageDto,chatService)
+        sendMessage(chatMessageDto,chatService);
     }
     public <T> void sendMessage(T message, ChatService chatService){
         sessions.parallelStream().forEach(session -> chatService.sendMessage(session,message));
