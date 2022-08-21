@@ -26,7 +26,7 @@ public class MemberDetailsImpl implements UserDetails {
     }
 
     @Override
-    public Stgitring getPassword() {
+    public String getPassword() {
         return member.getPassword();
     }
 
