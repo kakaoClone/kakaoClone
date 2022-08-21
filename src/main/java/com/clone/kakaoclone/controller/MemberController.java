@@ -2,6 +2,8 @@ package com.clone.kakaoclone.controller;
 
 import com.clone.kakaoclone.dto.request.LoginRequestDto;
 import com.clone.kakaoclone.dto.request.MemberRequestDto;
+import com.clone.kakaoclone.dto.request.ProfileRequestDto;
+import com.clone.kakaoclone.dto.response.MemberResponseDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,30 @@ public class MemberController {
     }
 
     @GetMapping("/test")
-    public String test() {
-        return "테스트 성공";
+    public ResponseDto<?> test() {
+        return ResponseDto.success("성공");
+    }
+
+    @GetMapping("/api/members/check/{username}")
+    public ResponseDto<?> checkDupId(@PathVariable String username){
+        return memberService.checkDupId(username);
+    }
+
+    @GetMapping("/api/members/{nickname}")
+    public ResponseDto<?> checkDupNickname(@PathVariable String nickname){
+        return memberService.checkDupNickname(nickname);
+
+    }
+
+    @GetMapping("/api/members/find/{memberId}")
+    public ResponseDto<?> veiwProfile(@PathVariable Long memberId){
+        return memberService.viewProfile(memberId);
+
+    }
+
+    @PutMapping("/api/members/find/{memberId}")
+    public ResponseDto<?> editProfile(@PathVariable Long memberId, @RequestBody ProfileRequestDto requestDto){
+
+        return memberService.editProfile(memberId, requestDto);
     }
 }

@@ -20,6 +20,7 @@ public class MemberResponseDto {
     private LocalDateTime modifiedAt;
 
     public MemberResponseDto(Member member){
+        this.id = member.getMember_id();
         this.username = member.getUsername();
         this.nickname = member.getNickname();
         this.imgUrl = member.getImgUrl();
