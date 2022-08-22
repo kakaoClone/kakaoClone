@@ -62,9 +62,9 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 /*.antMatchers("/api/members/signup").permitAll()
                 .antMatchers("/api/members/login").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()*/
-                .anyRequest().permitAll()
+                .antMatchers("/h2-console/**").permitAll()*/
+                .anyRequest().authenticated()
+
 
                 .and()
                 .apply(new JwtSecurityConfiguration(SECRET_KEY, tokenProvider, userDetailsService));
