@@ -21,9 +21,14 @@ public class AdditionalMemberController {
         return additionalMemberService.searchAllUser(nickname);
     }
 
-    @PostMapping("/friends/{friendId}") // 친구 추가
-    public void addFriend(@PathVariable Long friendId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    @PostMapping("/friends/{friendId}") // id로 친구 추가
+    public void addFriendId(@PathVariable Long friendId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         additionalMemberService.addFriend(friendId, userDetails);
+    }
+
+    @PostMapping("/friendsAdd/{friendUsername}") // username 으로 친구 추가
+    public void addFriendUsername(@PathVariable String friendUsername, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        additionalMemberService.addFriendUsername(friendUsername, userDetails);
     }
 
     @GetMapping("/searchFriends") // 친구 닉네임 검색
