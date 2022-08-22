@@ -1,4 +1,14 @@
-package com.clone.kakaoclone.service;
-
-public class MemberService {
-}
+//package com.clone.kakaoclone.service;
+//
+//import com.clone.kakaoclone.repository.MemberRepository;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//@RequiredArgsConstructor
+//public class MemberService {
+//    private final MemberRepository memberRepository;
+//
+//
+//
+//}

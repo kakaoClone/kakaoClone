@@ -1,12 +1,14 @@
 package com.clone.kakaoclone.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
 @Getter
 public class Member extends Timestamped{
     @Id
@@ -26,11 +28,10 @@ public class Member extends Timestamped{
     private String imgUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "friendId")
+    @JoinColumn(name = "FRIEND_ID")
     private Member friend;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @Column
+    @OneToMany(mappedBy = "friend")
     private List<Member> friendList = new ArrayList<>();
 
     @ManyToMany
