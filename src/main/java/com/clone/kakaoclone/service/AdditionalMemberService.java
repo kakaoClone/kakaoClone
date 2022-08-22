@@ -90,6 +90,23 @@ public class AdditionalMemberService {
         List<Friend> friends = friendRepository.findAllByMember(member);
         return friends.stream().map(Friend::getFromMember).map(FriendResponseDto::new).collect(Collectors.toList());
     }
+
+    @Transactional
+    public void addFriendUsername(String friendUsername, UserDetailsImpl userDetails) {
+        Member member = userDetails.getMember();
+        if (member.getUsername().equals(friendUsername)) {
+            throw new IllegalArgumentException("자신은 친구로 등록할 수 없습니다.");
+        }
+        Member friend = memberRepository.findByUsername(friendUsername)
+                .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
+        if (friendRepository.existsByMemberAndFromMember(member, friend)) {
+            throw new IllegalArgumentException("이미 등록된 친구입니다.");
+        }
+        friendRepository.save(Friend.builder()
+                .member(member)
+                .fromMember(friend)
+                .build());
+    }
 }
 
 //    @Transactional(readOnly = true)
