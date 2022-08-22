@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class ChatRoomResponseDto {
+public class AddChatRoomResponseDto {
     private Long id;
     private String chatRoomName;
     private int memberCnt;
