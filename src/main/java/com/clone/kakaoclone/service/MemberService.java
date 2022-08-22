@@ -58,8 +58,6 @@ public class MemberService {
         );
     }
 
-
-
     @Transactional
     public ResponseDto<?> login(LoginRequestDto requestDto, HttpServletResponse response) {
         Member member = isPresentMember(requestDto.getUsername());

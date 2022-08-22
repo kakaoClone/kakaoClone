@@ -12,11 +12,11 @@ import java.util.Collection;
 
 @Data
 @NoArgsConstructor
-public class MemberDetailsImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private Member member;
 
-    public MemberDetailsImpl(Member member) {
+    public UserDetailsImpl(Member member) {
         this.member = member;
     }
 

@@ -1,17 +1,16 @@
 package com.clone.kakaoclone.service;
 
 import com.clone.kakaoclone.entity.Member;
-import com.clone.kakaoclone.entity.MemberDetailsImpl;
+import com.clone.kakaoclone.entity.UserDetailsImpl;
 import com.clone.kakaoclone.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MemberDetailsService implements UserDetailsService {
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final MemberRepository memberRepository;
 
@@ -20,6 +19,6 @@ public class MemberDetailsService implements UserDetailsService {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't find " + username));
 
-        return new MemberDetailsImpl(member);
+        return new UserDetailsImpl(member);
     }
 }

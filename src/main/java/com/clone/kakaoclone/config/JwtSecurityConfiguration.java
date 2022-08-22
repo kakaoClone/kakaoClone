@@ -3,7 +3,7 @@ package com.clone.kakaoclone.config;
 
 import com.clone.kakaoclone.jwt.JwtFilter;
 import com.clone.kakaoclone.jwt.TokenProvider;
-import com.clone.kakaoclone.service.MemberDetailsService;
+import com.clone.kakaoclone.service.UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +16,7 @@ public class JwtSecurityConfiguration
 
     private final String SECRET_KEY;
     private final TokenProvider tokenProvider;
-    private final MemberDetailsService memberDetailsService;
+    private final UserDetailsService memberDetailsService;
 
     @Override
     public void configure(HttpSecurity httpSecurity) {

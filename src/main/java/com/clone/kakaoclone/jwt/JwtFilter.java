@@ -2,7 +2,7 @@ package com.clone.kakaoclone.jwt;
 
 
 import com.clone.kakaoclone.dto.response.ResponseDto;
-import com.clone.kakaoclone.service.MemberDetailsService;
+import com.clone.kakaoclone.service.UserDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -41,7 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
   private final String SECRET_KEY;
 
   private final TokenProvider tokenProvider;
-  private final MemberDetailsService userDetailsService;
+  private final UserDetailsService userDetailsService;
 
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws IOException, ServletException {

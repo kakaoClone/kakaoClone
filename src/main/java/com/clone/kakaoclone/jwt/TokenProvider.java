@@ -4,7 +4,7 @@ package com.clone.kakaoclone.jwt;
 import com.clone.kakaoclone.dto.TokenDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.entity.Member;
-import com.clone.kakaoclone.entity.MemberDetailsImpl;
+import com.clone.kakaoclone.entity.UserDetailsImpl;
 import com.clone.kakaoclone.entity.RefreshToken;
 import com.clone.kakaoclone.repository.RefreshTokenRepository;
 import com.clone.kakaoclone.shared.Authority;
@@ -100,7 +100,7 @@ public class TokenProvider {
         isAssignableFrom(authentication.getClass())) {
       return null;
     }
-    return ((MemberDetailsImpl) authentication.getPrincipal()).getMember();
+    return ((UserDetailsImpl) authentication.getPrincipal()).getMember();
   }
 
   public boolean validateToken(String token) {

@@ -3,7 +3,7 @@ package com.clone.kakaoclone.config;
 import com.clone.kakaoclone.jwt.AccessDeniedHandlerException;
 import com.clone.kakaoclone.jwt.AuthenticationEntryPointException;
 import com.clone.kakaoclone.jwt.TokenProvider;
-import com.clone.kakaoclone.service.MemberDetailsService;
+import com.clone.kakaoclone.service.UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -32,7 +32,7 @@ public class SecurityConfiguration {
     @Value("${jwt.secret}")
     String SECRET_KEY;
     private final TokenProvider tokenProvider;
-    private final MemberDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
     private final AuthenticationEntryPointException authenticationEntryPointException;
     private final AccessDeniedHandlerException accessDeniedHandlerException;
 
