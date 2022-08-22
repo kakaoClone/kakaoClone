@@ -7,6 +7,8 @@ import com.clone.kakaoclone.dto.response.MemberResponseDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -58,5 +60,15 @@ public class MemberController {
     public ResponseDto<?> editProfile(@PathVariable Long memberId, @RequestBody ProfileRequestDto requestDto){
 
         return memberService.editProfile(memberId, requestDto);
+    }
+
+    //회원 정보 조회
+    @GetMapping("/api/members/info")
+    public ResponseDto<?> LoginInfo(@AuthenticationPrincipal UserDetails userInfo) {
+        try {
+            return  memberService.LoginInfo(userInfo);
+        } catch (Exception e) {
+            return  ResponseDto.fail("NOT_STATE_LOGIN", e.getMessage());
+        }
     }
 }
