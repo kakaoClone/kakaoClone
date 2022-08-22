@@ -63,7 +63,9 @@ public class SecurityConfiguration {
                 .antMatchers("/api/members/signup").permitAll()
                 .antMatchers("/api/members/login").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()
+                //테스트용 허용
+                .anyRequest().permitAll()
+//임시                .anyRequest().authenticated()
 
                 .and()
                 .apply(new JwtSecurityConfiguration(SECRET_KEY, tokenProvider, userDetailsService));
