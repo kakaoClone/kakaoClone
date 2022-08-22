@@ -3,7 +3,6 @@ package com.clone.kakaoclone.controller;
 import com.clone.kakaoclone.dto.request.LoginRequestDto;
 import com.clone.kakaoclone.dto.request.MemberRequestDto;
 import com.clone.kakaoclone.dto.request.ProfileRequestDto;
-import com.clone.kakaoclone.dto.response.MemberResponseDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +26,7 @@ public class MemberController {
 
     @PostMapping("/api/members/login")
     public ResponseDto<?> login(@RequestBody @Valid LoginRequestDto requestDto,
-                                HttpServletResponse response
-    ) {
+                                HttpServletResponse response) {
         return memberService.login(requestDto, response);
     }
 
@@ -47,13 +45,11 @@ public class MemberController {
         return memberService.checkDupNickname(nickname);
 
     }
-
     @GetMapping("/api/members/find/{memberId}")
     public ResponseDto<?> veiwProfile(@PathVariable Long memberId){
         return memberService.viewProfile(memberId);
 
     }
-
     @PutMapping("/api/members/find/{memberId}")
     public ResponseDto<?> editProfile(@PathVariable Long memberId, @RequestBody ProfileRequestDto requestDto){
 

@@ -118,7 +118,6 @@ public class AdditionalMemberService {
 //                .imgUrl(someone.getImgUrl())
 //                .isFriend("isNotFriend")
 //                .build();
-//
 //    }
 //
 //    @Transactional

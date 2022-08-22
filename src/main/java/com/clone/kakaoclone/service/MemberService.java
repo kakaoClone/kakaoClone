@@ -160,6 +160,5 @@ public class MemberService {
         MemberResponseDto responseDto = new MemberResponseDto(member);
 
         return ResponseDto.success(responseDto);
-
     }
 }
