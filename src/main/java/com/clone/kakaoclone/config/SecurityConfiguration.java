@@ -60,11 +60,11 @@ public class SecurityConfiguration {
 
                 .and()
                 .authorizeRequests()
+                .antMatchers("*").permitAll()
                 /*.antMatchers("/api/members/signup").permitAll()
                 .antMatchers("/api/members/login").permitAll()
-                .antMatchers("/h2-console/**").permitAll()*/
-                .anyRequest().authenticated()
-
+                .antMatchers("/h2-console/**").permitAll()
+                .anyRequest().authenticated()*/
 
                 .and()
                 .apply(new JwtSecurityConfiguration(SECRET_KEY, tokenProvider, userDetailsService));
