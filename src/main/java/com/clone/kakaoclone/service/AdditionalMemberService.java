@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +60,7 @@ public class AdditionalMemberService {
         }
         Member friend = memberRepository.findById(friendId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
-        if (friendRepository.existsByMemberAndMember(member, friend)) {
+        if (friendRepository.existsByMemberAndFromMember(member, friend)) {
             throw new IllegalArgumentException("이미 등록된 친구입니다.");
         }
         friendRepository.save(Friend.builder()

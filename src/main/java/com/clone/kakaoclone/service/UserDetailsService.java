@@ -14,7 +14,6 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     private final MemberRepository memberRepository;
 
-
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't find " + username));

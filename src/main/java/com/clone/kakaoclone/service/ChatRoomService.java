@@ -44,7 +44,7 @@ public class ChatRoomService {
         Member member = userDetails.getMember();
         Member friend = memberRepository.findById(friendId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
-        if(!friendRepository.existsByMemberAndMember(member, friend)){
+        if(!friendRepository.existsByMemberAndFromMember(member, friend)){
             throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
         }
         ChatRoom chatRoom = ChatRoom.builder()
@@ -74,7 +74,7 @@ public class ChatRoomService {
         if (userChatRoomRepository.existsByMemberAndChatRoom(friend, chatRoom)) {
             throw new IllegalArgumentException("이미 채널에 존재하는 친구입니다.");
         }
-        if(!friendRepository.existsByMemberAndMember(member, friend)){
+        if(!friendRepository.existsByMemberAndFromMember(member, friend)){
             throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
         }
         userChatRoomRepository.save(UserChatRoom.builder()
