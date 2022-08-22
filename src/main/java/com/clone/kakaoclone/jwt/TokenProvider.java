@@ -6,6 +6,7 @@ import com.clone.kakaoclone.entity.Member;
 import com.clone.kakaoclone.entity.MemberDetailsImpl;
 import com.clone.kakaoclone.entity.RefreshToken;
 import com.clone.kakaoclone.repository.RefreshTokenRepository;
+import com.clone.kakaoclone.shared.Authority;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -48,6 +49,7 @@ import java.util.Optional;
             Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
             String accessToken = Jwts.builder()
                     .setSubject(member.getUsername())
+                    .claim(AUTHORITIES_KEY, Authority.ROLE_MEMBER.toString())
                     .setExpiration(accessTokenExpiresIn)
                     .signWith(key, SignatureAlgorithm.HS256)
                     .compact();
@@ -58,7 +60,7 @@ import java.util.Optional;
                     .compact();
 
             RefreshToken refreshTokenObject = RefreshToken.builder()
-                    .id(member.getId())
+                    .id(member.getMember_id())
                     .member(member)
                     .value(refreshToken)
                     .build();

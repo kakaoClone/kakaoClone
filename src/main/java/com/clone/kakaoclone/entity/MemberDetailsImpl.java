@@ -1,5 +1,6 @@
 package com.clone.kakaoclone.entity;
 
+import com.clone.kakaoclone.shared.Authority;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,6 +24,10 @@ public class MemberDetailsImpl implements UserDetails {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(authority);
         return authorities;
+    }
+
+    public Member getUser() {
+        return member;
     }
 
     @Override

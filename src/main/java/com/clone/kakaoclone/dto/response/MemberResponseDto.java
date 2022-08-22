@@ -19,23 +19,24 @@ public class MemberResponseDto {
     private String nickname;
 
     private String imgUrl;
-
-
-
     private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
+
+
+
 
     public MemberResponseDto(Member member) {
         this.username = member.getUsername();
         this.nickname = member.getNickname();
         this.imgUrl = member.getImgUrl();
         this.createdAt = member.getCreatedAt();
+        this.modifiedAt = member.getModifiedAt();
 
     }
 
     public MemberResponseDto(String username, String nickname, String imgUrl){
         this.username = username;
         this.nickname = nickname;
-        this.imgUrl = imgUrl;
 
     }
 }

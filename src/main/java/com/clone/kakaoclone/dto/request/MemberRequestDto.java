@@ -22,4 +22,6 @@ public class MemberRequestDto {
 
     private String nickname;
 
+    private String imgUrl;
+
 }

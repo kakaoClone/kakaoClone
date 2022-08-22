@@ -19,7 +19,7 @@ import java.util.Objects;
 public class Member extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long member_id;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -54,7 +54,7 @@ public class Member extends Timestamped{
             return false;
         }
         Member member = (Member) o;
-        return id != null && Objects.equals(id, member.getId());
+        return member_id != null && Objects.equals(member_id, member.getMember_id());
     }
 
     public boolean validatePassword(PasswordEncoder passwordEncoder, String password) {

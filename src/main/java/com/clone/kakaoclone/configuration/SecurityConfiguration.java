@@ -46,6 +46,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors();
 
+        //이거 뭔지 물어보기
+        http.headers().frameOptions().disable();
+
         http.csrf().disable()
 
 
@@ -60,6 +63,8 @@ public class SecurityConfiguration {
 
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/members/**").permitAll()
+                .antMatchers("/api/posts/**").permitAll()
                 .antMatchers("/api/member/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()

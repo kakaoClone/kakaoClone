@@ -1,5 +1,6 @@
 package com.clone.kakaoclone.controller;
 
+import com.clone.kakaoclone.dto.request.LoginRequestDto;
 import com.clone.kakaoclone.dto.request.MemberRequestDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.service.MemberService;
@@ -25,7 +26,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/api/members/login", method = RequestMethod.POST)
-    public ResponseDto<?> login(@RequestBody @Valid MemberRequestDto requestDto,
+    public ResponseDto<?> login(@RequestBody @Valid LoginRequestDto requestDto,
                                 HttpServletResponse response) {
         return memberService.login(requestDto, response);
     }

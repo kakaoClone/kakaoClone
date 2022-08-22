@@ -44,7 +44,7 @@ public class MemberService {
         memberRepository.save(member);
         return ResponseDto.success(
                 MemberResponseDto.builder()
-                        .id(member.getId())
+                        .id(member.getMember_id())
                         .username(member.getUsername())
                         .nickname(member.getNickname())
                         .createdAt(member.getCreatedAt())
@@ -69,7 +69,7 @@ public class MemberService {
 
         return ResponseDto.success(
                 MemberResponseDto.builder()
-                        .id(member.getId())
+                        .id(member.getMember_id())
                         .nickname(member.getNickname())
                         .createdAt(member.getCreatedAt())
                         .build()

@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.3'
+    id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
 }
@@ -29,16 +29,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    // aws
-    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
 
-    // Thymeleaf (뷰 템플릿 엔진)
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    // junit4
-    testImplementation group: 'junit', name: 'junit', version: '4.5'
-
-    // validation
+    // 검증
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'junit:junit:4.13.1'
 
@@ -52,5 +45,4 @@ dependencies {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
 }
