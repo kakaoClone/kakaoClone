@@ -4,6 +4,7 @@ import com.clone.kakaoclone.dto.TokenDto;
 import com.clone.kakaoclone.dto.request.LoginRequestDto;
 import com.clone.kakaoclone.dto.request.MemberRequestDto;
 import com.clone.kakaoclone.dto.request.ProfileRequestDto;
+import com.clone.kakaoclone.dto.response.MemberInfoResponseDto;
 import com.clone.kakaoclone.dto.response.MemberResponseDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.entity.Member;
@@ -160,5 +161,16 @@ public class MemberService {
         MemberResponseDto responseDto = new MemberResponseDto(member);
 
         return ResponseDto.success(responseDto);
+    }
+
+    public ResponseDto<?> LoginInfo(UserDetails userInfo) {
+        Member member = memberRepository.findByUsername(userInfo.getUsername()).orElseThrow(
+                () -> new IllegalArgumentException("로그인 상태가 아닙니다.")
+        );
+
+        MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto(member);
+
+        return ResponseDto.success(memberInfoResponseDto);
+
     }
 }
