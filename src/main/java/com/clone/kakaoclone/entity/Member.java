@@ -1,5 +1,6 @@
 package com.clone.kakaoclone.entity;
 
+import com.clone.kakaoclone.dto.request.ProfileRequestDto;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,5 +58,10 @@ public class Member extends Timestamped{
 
     public boolean validatePassword(PasswordEncoder passwordEncoder, String password) {
         return passwordEncoder.matches(password, this.password);
+    }
+
+    public void editProfile(ProfileRequestDto requestDto){
+        this.nickname = requestDto.getNickname();
+        this.imgUrl = requestDto.getImgUrl();
     }
 }
