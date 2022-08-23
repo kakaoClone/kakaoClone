@@ -10,6 +10,7 @@ import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.entity.Member;
 import com.clone.kakaoclone.jwt.TokenProvider;
 import com.clone.kakaoclone.repository.MemberRepository;
+import com.clone.kakaoclone.shared.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,6 +44,7 @@ public class MemberService {
                 .nickname(requestDto.getNickname())
                 .password(passwordEncoder.encode(requestDto.getPassword()))
                 .imgUrl(requestDto.getImgUrl())
+                .authority(Authority.ROLE_MEMBER)
                 .build();
 
         memberRepository.save(member);
@@ -161,7 +163,6 @@ public class MemberService {
         MemberResponseDto responseDto = new MemberResponseDto(member);
 
         return ResponseDto.success(responseDto);
-
     }
 
     public ResponseDto<?> LoginInfo(UserDetails userInfo) {

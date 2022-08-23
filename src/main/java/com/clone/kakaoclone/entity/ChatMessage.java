@@ -1,14 +1,19 @@
 package com.clone.kakaoclone.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.List;
 
 @NoArgsConstructor
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 public class ChatMessage extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +23,11 @@ public class ChatMessage extends Timestamped {
     private String content;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Member member;
-}
 
+    @ManyToOne
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ChatRoom chatRoom;
+}

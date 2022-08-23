@@ -22,6 +22,6 @@ public class ChatRoom {
     private String chatName;
 
     @ManyToMany
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private List<Member> memberList;
 }

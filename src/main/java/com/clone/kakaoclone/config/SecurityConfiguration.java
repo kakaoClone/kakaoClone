@@ -62,6 +62,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers("/api/members/signup").permitAll()
                 .antMatchers("/api/members/login").permitAll()
+                .antMatchers("/socket/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 //테스트용 허용
                 .anyRequest().permitAll()
