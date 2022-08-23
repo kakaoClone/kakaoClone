@@ -62,6 +62,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers("/api/members/signup").permitAll()
                 .antMatchers("/api/members/login").permitAll()
+                .antMatchers("/socket/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
 

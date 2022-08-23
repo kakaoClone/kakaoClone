@@ -14,14 +14,22 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Key;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -35,11 +43,12 @@ public class TokenProvider {
   private final Key key;
 
   private final RefreshTokenRepository refreshTokenRepository;
-//  private final UserDetailsServiceImpl userDetailsService;
+  private final UserDetailsService userDetailsService;
 
   public TokenProvider(@Value("${jwt.secret}") String secretKey,
-      RefreshTokenRepository refreshTokenRepository) {
+                       RefreshTokenRepository refreshTokenRepository, UserDetailsService userDetailsService) {
     this.refreshTokenRepository = refreshTokenRepository;
+    this.userDetailsService = userDetailsService;
     byte[] keyBytes = Decoders.BASE64.decode(secretKey);
     this.key = Keys.hmacShaKeyFor(keyBytes);
   }
@@ -77,22 +86,27 @@ public class TokenProvider {
 
   }
 
-//  public Authentication getAuthentication(String accessToken) {
-//    Claims claims = parseClaims(accessToken);
-//
-//    if (claims.get(AUTHORITIES_KEY) == null) {
-//      throw new RuntimeException("권한 정보가 없는 토큰 입니다.");
-//    }
-//
-//    Collection<? extends GrantedAuthority> authorities =
-//        Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-//            .map(SimpleGrantedAuthority::new)
-//            .collect(Collectors.toList());
-//
-//    UserDetails principal = userDetailsService.loadUserByUsername(claims.getSubject());
-//
-//    return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+//  public Authentication getAuthentication(String token) {
+//    UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
+//    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 //  }
+
+  public Authentication getAuthentication(String accessToken) {
+    Claims claims = parseClaims(accessToken);
+
+    if (claims.get(AUTHORITIES_KEY) == null) {
+      throw new RuntimeException("권한 정보가 없는 토큰 입니다.");
+    }
+
+    Collection<? extends GrantedAuthority> authorities =
+        Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+
+    UserDetails principal = userDetailsService.loadUserByUsername(claims.getSubject());
+
+    return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+  }
 
   public Member getMemberFromAuthentication() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -119,13 +133,13 @@ public class TokenProvider {
     return false;
   }
 
-//  private Claims parseClaims(String accessToken) {
-//    try {
-//      return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
-//    } catch (ExpiredJwtException e) {
-//      return e.getClaims();
-//    }
-//  }
+  private Claims parseClaims(String accessToken) {
+    try {
+      return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+    } catch (ExpiredJwtException e) {
+      return e.getClaims();
+    }
+  }
 
   @Transactional(readOnly = true)
   public RefreshToken isPresentRefreshToken(Member member) {

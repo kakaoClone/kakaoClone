@@ -1,6 +1,7 @@
 package com.clone.kakaoclone.entity;
 
 import com.clone.kakaoclone.dto.request.ProfileRequestDto;
+import com.clone.kakaoclone.shared.Authority;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +33,9 @@ public class Member extends Timestamped{
 
     @Column
     private String imgUrl;
+
+    @Enumerated(value = EnumType.STRING)
+    private Authority authority;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "friendId")
