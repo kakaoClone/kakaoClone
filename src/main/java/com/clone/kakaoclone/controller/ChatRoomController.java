@@ -38,4 +38,5 @@ public class ChatRoomController {
     public List<ChatRoomResponseDto> readAllChatRoom(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return chatRoomService.readAllChatRoom(userDetails);
     }
+
 }

@@ -31,7 +31,7 @@ public class ChatRoomService {
         Member member = userDetails.getMember();
         ChatRoom chatRoom = ChatRoom.builder()
                 .chatName(chatRoomRequestDto.getChatRoomName())
-                .isPrivate(true)
+              //  .isPrivate(true)
                 .build();
         chatRoomRepository.save(chatRoom);
         userChatRoomRepository.save(UserChatRoom.builder()

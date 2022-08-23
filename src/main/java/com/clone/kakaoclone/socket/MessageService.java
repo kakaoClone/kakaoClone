@@ -56,12 +56,12 @@ public class MessageService {
         if (userDetails == null) {
             throw new IllegalArgumentException("로그인이 필요합니다");
         }
-        if(chatRoom.getIsPrivate()) {
-            //비공개 채널일떄 초대됐는지 검사
-            if (!userChatRoomRepository.existsByChatRoomAndMember(chatRoom, member)) {
-                throw new IllegalArgumentException("채팅 권한이 없습니다.");
-            }
-        }
+//        if(chatRoom.getIsPrivate()) {
+//            //비공개 채널일떄 초대됐는지 검사
+//            if (!userChatRoomRepository.existsByChatRoomAndMember(chatRoom, member)) {
+//                throw new IllegalArgumentException("채팅 권한이 없습니다.");
+//            }
+//        }
         //공개채널일경우 검사 안함
         return chatRoom;
     }

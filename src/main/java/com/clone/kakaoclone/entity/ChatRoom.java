@@ -26,8 +26,8 @@ public class ChatRoom extends Timestamped {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(nullable = false)
-    private Boolean isPrivate;
+//    @Column(nullable = false)
+//    private Boolean isPrivate;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "channel_id")
