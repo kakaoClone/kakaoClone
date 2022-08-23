@@ -1,5 +1,6 @@
 package com.clone.kakaoclone.entity;
 
+import com.clone.kakaoclone.socket.Message;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Getter
-public class ChatRoom {
+public class ChatRoom extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +22,17 @@ public class ChatRoom {
     @Column(nullable = false)
     private String chatName;
 
-    @ManyToMany
-    @JoinColumn(nullable = false)
-    private List<Member> memberList;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @Column(nullable = false)
+    private Boolean isPrivate;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "channel_id")
+    private List<UserChatRoom> userChatRoomList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "channel_id")
+    private List<Message> messages;//초대된 유저
 }

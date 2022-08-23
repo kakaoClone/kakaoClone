@@ -5,6 +5,7 @@ import com.clone.kakaoclone.entity.UserDetailsImpl;
 import com.clone.kakaoclone.service.AdditionalMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class AdditionalMemberController {
     }
 
     @PostMapping("/friendsAdd/{friendUsername}") // username 으로 친구 추가
-    public void addFriendUsername(@PathVariable String friendUsername, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public void addFriendUsername(@PathVariable String friendUsername, @AuthenticationPrincipal UserDetails userDetails) {
         additionalMemberService.addFriendUsername(friendUsername, userDetails);
     }
 

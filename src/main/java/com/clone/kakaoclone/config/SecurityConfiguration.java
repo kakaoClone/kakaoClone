@@ -62,7 +62,9 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers("/api/members/signup").permitAll()
                 .antMatchers("/api/members/login").permitAll()
+                .antMatchers("/api/members/friendsAdd/{friendUsername}").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

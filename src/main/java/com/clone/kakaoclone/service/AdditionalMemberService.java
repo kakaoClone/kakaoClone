@@ -9,6 +9,7 @@ import com.clone.kakaoclone.repository.FriendRepository;
 import com.clone.kakaoclone.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,8 +93,9 @@ public class AdditionalMemberService {
     }
 
     @Transactional
-    public void addFriendUsername(String friendUsername, UserDetailsImpl userDetails) {
-        Member member = userDetails.getMember();
+    public void addFriendUsername(String friendUsername, UserDetails userDetails) {
+        Member member = memberRepository.findByUsername(userDetails.getUsername()).orElse(null);
+
         if (member.getUsername().equals(friendUsername)) {
             throw new IllegalArgumentException("자신은 친구로 등록할 수 없습니다.");
         }
