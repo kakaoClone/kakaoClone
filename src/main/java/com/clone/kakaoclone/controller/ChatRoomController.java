@@ -34,7 +34,7 @@ public class ChatRoomController {
         chatRoomService.inviteFriend(chatRoomId, friendId, userDetails);
     }
 
-    @GetMapping("")
+    @GetMapping("")// 모든 채팅방
     public List<ChatRoomResponseDto> readAllChatRoom(@AuthenticationPrincipal UserDetailsImpl userDetails){
         return chatRoomService.readAllChatRoom(userDetails);
     }

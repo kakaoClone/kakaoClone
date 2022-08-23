@@ -1,13 +1,12 @@
 package com.clone.kakaoclone.websocket;
 
-import com.clone.kakaoclone.entity.ChatRoom;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
 //ChatService의 역할을 대체 ChatService 삭제
 @Repository
-public class ChatRoomRepository {
+public class ChatRoomRepositoryDto {
 
     private Map<String, ChatRoomDto> chatRoomDtoMap;
 
