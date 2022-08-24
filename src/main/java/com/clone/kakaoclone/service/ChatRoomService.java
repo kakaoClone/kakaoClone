@@ -2,6 +2,7 @@ package com.clone.kakaoclone.service;
 
 import com.clone.kakaoclone.dto.request.ChatRoomRequestDto;
 import com.clone.kakaoclone.dto.response.ChatRoomResponseDto;
+import com.clone.kakaoclone.dto.response.CreatedRoomResponseDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.entity.ChatRoom;
 import com.clone.kakaoclone.entity.Member;
@@ -53,6 +54,7 @@ public class ChatRoomService {
             return ResponseDto.fail("ALEADY_CREATE_CHATROOM", "이미 생성된 채팅방입니다.");
         }
         ChatRoom chatRoom = ChatRoom.builder()
+                .chatName(friend.getNickname())
                 .build();
         chatRoomRepository.save(chatRoom);
         UserChatRoom userChatRoom = userChatRoomRepository.save(UserChatRoom.builder()
@@ -64,7 +66,10 @@ public class ChatRoomService {
 //                .member(friend)
 //                .chatRoom(chatRoom)
 //                .build());
-        return ResponseDto.success(userChatRoom);
+        CreatedRoomResponseDto createdRoomResponseDto = CreatedRoomResponseDto.builder()
+                .friendNick(friend.getNickname())
+                .build();
+        return ResponseDto.success(createdRoomResponseDto);
     }
 
     @Transactional // 채널에 친구 초대
