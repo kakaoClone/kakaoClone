@@ -1,7 +1,6 @@
 package com.clone.kakaoclone.repository;
 
 import com.clone.kakaoclone.entity.ChatRoom;
-import com.clone.kakaoclone.entity.Friend;
 import com.clone.kakaoclone.entity.Member;
 import com.clone.kakaoclone.entity.UserChatRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +12,6 @@ public interface UserChatRoomRepository extends JpaRepository<UserChatRoom,Long>
     boolean existsByMemberAndChatRoom(Member member, ChatRoom chatRoom);
     List<UserChatRoom> findAllByMember(Member member);
     List<UserChatRoom> findAllByChatRoom(ChatRoom chatRoom);
+    List<UserChatRoom> findAllByFriend(Member friend);
 
 }
