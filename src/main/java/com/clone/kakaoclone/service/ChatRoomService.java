@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -104,14 +106,29 @@ public class ChatRoomService {
         List<ChatRoom> chatRooms = userChatRooms.stream().map(UserChatRoom::getChatRoom).collect(Collectors.toList());
         List<ChatRoomResponseDto> result = new ArrayList<>();
         for (ChatRoom chatRoom : chatRooms) {
-            result.add(ChatRoomResponseDto.builder()
-                    .id(chatRoom.getId())
-                    .chatRoomName(chatRoom.getChatName())
-                    .memberCnt(userChatRoomRepository.findAllByChatRoom(chatRoom).size())
-                    .lastChatTime(chatMessageRepository.findTopByChatRoomIdOrderByCreatedAtDesc(chatRoom.getId()).getCreatedAt())
-                    .lastContent(chatMessageRepository.findTopByChatRoomIdOrderByCreatedAtDesc(chatRoom.getId()).getContent())
-                    .memberCnt(2)
-                    .build());
+            ChatMessage chatMessage = chatMessageRepository.findTopByChatRoomIdOrderByCreatedAtDesc(chatRoom.getId()).orElse(null);
+            if(chatMessage == null) {
+                result.add(ChatRoomResponseDto.builder()
+                        .id(chatRoom.getId())
+                        .chatRoomName(chatRoom.getChatName())
+                        .memberCnt(userChatRoomRepository.findAllByChatRoom(chatRoom).size())
+                        .lastChatTime(null)
+                        .lastContent("")
+                        .memberCnt(2)
+                        .build());
+
+            } else {
+                result.add(ChatRoomResponseDto.builder()
+                        .id(chatRoom.getId())
+                        .chatRoomName(chatRoom.getChatName())
+                        .memberCnt(userChatRoomRepository.findAllByChatRoom(chatRoom).size())
+                        .lastChatTime(chatMessage.getCreatedAt())
+                        .lastContent(chatMessage.getContent())
+                        .memberCnt(2)
+                        .build());
+            }
+
+
         }
         return result;
     }

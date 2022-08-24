@@ -36,6 +36,7 @@ public class ChatRoomController {
 
     @GetMapping("")
     public List<ChatRoomResponseDto> readAllChatRoom(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        System.out.println("이거 뭐가나옴????? :" + userDetails.getMember().getUsername());
         return chatRoomService.readAllChatRoom(userDetails);
     }
 }
