@@ -23,9 +23,8 @@ public class ChatRoomController {
     }
 
     @PostMapping("/friend/{friendId}") // 친구와 1:1 채널 생성
-    public void createChatRoomWithFriend(@PathVariable Long friendId, @RequestBody ChatRoomRequestDto chatRoomRequestDto,
-                                         @AuthenticationPrincipal UserDetailsImpl userDetails){
-        chatRoomService.createChatRoomWithFriend(friendId, chatRoomRequestDto, userDetails);
+    public void createChatRoomWithFriend(@PathVariable Long friendId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        chatRoomService.createChatRoomWithFriend(friendId, userDetails);
     }
 
     @PostMapping("/{chatRoomId}/friend/{friendId}") // 채널에 친구초대

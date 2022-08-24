@@ -40,15 +40,17 @@ public class ChatRoomService {
     }
 
     @Transactional // 친구와 1:1 채널 생성
-    public void createChatRoomWithFriend(Long friendId, ChatRoomRequestDto chatRoomRequestDto, UserDetailsImpl userDetails) {
+    public void createChatRoomWithFriend(Long friendId,UserDetailsImpl userDetails) {
         Member member = userDetails.getMember();
         Member friend = memberRepository.findById(friendId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
         if(!friendRepository.existsByMemberAndFromMember(member, friend)){
             throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
+        }if(userChatRoomRepository.existsByMemberAndMember(member, friend)){
+            throw new IllegalArgumentException("이미 생성된 채팅방입니다.");
         }
+
         ChatRoom chatRoom = ChatRoom.builder()
-                .chatName(chatRoomRequestDto.getChatRoomName())
                 .build();
         chatRoomRepository.save(chatRoom);
         userChatRoomRepository.save(UserChatRoom.builder()
