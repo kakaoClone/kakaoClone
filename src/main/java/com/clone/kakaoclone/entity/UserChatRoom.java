@@ -19,11 +19,11 @@ public class UserChatRoom {
     private Long id;
 
     @JoinColumn(name = "member_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Member member;
 
     @JoinColumn(name = "chatroom_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ChatRoom chatRoom;
 
     @JoinColumn

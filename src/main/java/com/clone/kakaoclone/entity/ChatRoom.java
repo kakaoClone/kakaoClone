@@ -22,10 +22,8 @@ public class ChatRoom  {
 
     @Column
     private String chatName;
-
-    @ManyToMany
-    @JoinColumn
-    private List<Member> memberList;
-
-
+//
+//    @ManyToMany
+//    @JoinColumn
+//    private List<Member> memberList;
 }

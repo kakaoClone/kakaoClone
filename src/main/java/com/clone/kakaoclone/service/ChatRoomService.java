@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,18 +47,19 @@ public class ChatRoomService {
         Member member = userDetails.getMember();
         Member friend = memberRepository.findById(friendId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
-        if(!friendRepository.existsByMemberAndFromMember(member, friend)){
+        if (!friendRepository.existsByMemberAndFromMember(member, friend)) {
             //throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
             return ResponseDto.fail("JUST_FRIEND_INVITE", "친구만 초대할 수 있습니다.");
-        }if(userChatRoomRepository.existsByMemberAndFriend(member, friend)||userChatRoomRepository.existsByMemberAndFriend(friend,member)){
+        }
+        if (userChatRoomRepository.existsByMemberAndFriend(member, friend) || userChatRoomRepository.existsByMemberAndFriend(friend, member)) {
             //throw new IllegalArgumentException("이미 생성된 채팅방입니다.");
             return ResponseDto.fail("ALEADY_CREATE_CHATROOM", "이미 생성된 채팅방입니다.");
         }
         ChatRoom chatRoom = ChatRoom.builder()
-                .chatName(friend.getNickname())
+                .chatName(member.getNickname() + ", " + friend.getNickname())
                 .build();
         chatRoomRepository.save(chatRoom);
-        UserChatRoom userChatRoom = userChatRoomRepository.save(UserChatRoom.builder()
+        userChatRoomRepository.save(UserChatRoom.builder()
                 .member(member)
                 .friend(friend)
                 .chatRoom(chatRoom)
@@ -89,7 +88,7 @@ public class ChatRoomService {
         if (userChatRoomRepository.existsByMemberAndChatRoom(friend, chatRoom)) {
             throw new IllegalArgumentException("이미 채널에 존재하는 친구입니다.");
         }
-        if(!friendRepository.existsByMemberAndFromMember(member, friend)){
+        if (!friendRepository.existsByMemberAndFromMember(member, friend)) {
             throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
         }
         userChatRoomRepository.save(UserChatRoom.builder()
@@ -107,11 +106,10 @@ public class ChatRoomService {
         List<ChatRoomResponseDto> result = new ArrayList<>();
         for (ChatRoom chatRoom : chatRooms) {
             ChatMessage chatMessage = chatMessageRepository.findTopByChatRoomIdOrderByCreatedAtDesc(chatRoom.getId()).orElse(null);
-            if(chatMessage == null) {
+            if (chatMessage == null) {
                 result.add(ChatRoomResponseDto.builder()
                         .id(chatRoom.getId())
                         .chatRoomName(chatRoom.getChatName())
-                        .memberCnt(userChatRoomRepository.findAllByChatRoom(chatRoom).size())
                         .lastChatTime(null)
                         .lastContent("")
                         .memberCnt(2)
@@ -121,14 +119,11 @@ public class ChatRoomService {
                 result.add(ChatRoomResponseDto.builder()
                         .id(chatRoom.getId())
                         .chatRoomName(chatRoom.getChatName())
-                        .memberCnt(userChatRoomRepository.findAllByChatRoom(chatRoom).size())
                         .lastChatTime(chatMessage.getCreatedAt())
                         .lastContent(chatMessage.getContent())
                         .memberCnt(2)
                         .build());
             }
-
-
         }
         return result;
     }
