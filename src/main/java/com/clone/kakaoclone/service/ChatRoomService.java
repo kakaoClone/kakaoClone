@@ -98,13 +98,14 @@ public class ChatRoomService {
     public List<ChatRoomResponseDto> readAllChatRoom(UserDetailsImpl userDetails) {
         Member member = userDetails.getMember();
         List<UserChatRoom> userChatRooms = userChatRoomRepository.findAllByMember(member);
+        userChatRooms.addAll(userChatRoomRepository.findAllByFriend(member));
         List<ChatRoom> chatRooms = userChatRooms.stream().map(UserChatRoom::getChatRoom).collect(Collectors.toList());
         List<ChatRoomResponseDto> result = new ArrayList<>();
         for (ChatRoom chatRoom : chatRooms) {
             result.add(ChatRoomResponseDto.builder()
                     .id(chatRoom.getId())
                     .chatRoomName(chatRoom.getChatName())
-                    .memberCnt(userChatRoomRepository.findAllByChatRoom(chatRoom).size())
+                    .memberCnt(2)
                     .build());
         }
         return result;
