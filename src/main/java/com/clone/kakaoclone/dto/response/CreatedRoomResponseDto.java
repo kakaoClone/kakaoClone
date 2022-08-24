@@ -7,4 +7,5 @@ import lombok.Getter;
 @Builder
 public class CreatedRoomResponseDto {
     private String friendNick;
+    private Long roomId;
 }

@@ -20,8 +20,7 @@ public class ChatMessageService {
     private final ChatRoomRepository chatRoomRepository;
     private final TokenProvider tokenProvider;
 
-    public MessageResponseDto addMessage(MessageRequestDto messageRequestDto, Long roomId) {
-        String token = messageRequestDto.getToken();
+    public MessageResponseDto addMessage(MessageRequestDto messageRequestDto, Long roomId, String token) {
         Authentication authentication = tokenProvider.getAuthentication(token);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 

@@ -69,6 +69,7 @@ public class ChatRoomService {
 //                .build());
         CreatedRoomResponseDto createdRoomResponseDto = CreatedRoomResponseDto.builder()
                 .friendNick(friend.getNickname())
+                .roomId(chatRoom.getId())
                 .build();
         return ResponseDto.success(createdRoomResponseDto);
     }

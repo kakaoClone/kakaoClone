@@ -26,9 +26,10 @@ public class ChatMessageController {
     }
 
     @MessageMapping(value = {"/message/{roomId}"})
-    public void addMessage(@RequestBody MessageRequestDto messageRequestDto, @DestinationVariable Long roomId) {
-
-        MessageResponseDto messageResponseDto = messageService.addMessage(messageRequestDto, roomId);
+    public void addMessage(@RequestBody MessageRequestDto messageRequestDto, @DestinationVariable Long roomId,
+                           @RequestHeader("Authorization") String token) {
+        token = token.substring(7);
+        MessageResponseDto messageResponseDto = messageService.addMessage(messageRequestDto, roomId, token);
         simpleMessageSendingOperations.convertAndSend("/sub/channel/" + roomId, messageResponseDto);
     }
 }
