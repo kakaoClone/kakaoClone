@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface UserChatRoomRepository extends JpaRepository<UserChatRoom,Long>  {
-    boolean existsByMemberAndMember(Member member, Member friend);
+    boolean existsByMemberAndFriend(Member member, Member friend);
     boolean existsByMemberAndChatRoom(Member member, ChatRoom chatRoom);
     List<UserChatRoom> findAllByMember(Member member);
     List<UserChatRoom> findAllByChatRoom(ChatRoom chatRoom);

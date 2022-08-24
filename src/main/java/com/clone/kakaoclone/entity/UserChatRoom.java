@@ -26,5 +26,9 @@ public class UserChatRoom {
     @ManyToOne(fetch = FetchType.LAZY)
     private ChatRoom chatRoom;
 
+    @JoinColumn
+    @ManyToOne
+    private Member friend;
+
 
 }

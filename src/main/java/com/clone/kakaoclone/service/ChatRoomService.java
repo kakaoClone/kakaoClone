@@ -46,21 +46,21 @@ public class ChatRoomService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
         if(!friendRepository.existsByMemberAndFromMember(member, friend)){
             throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
-        }if(userChatRoomRepository.existsByMemberAndMember(member, friend)){
+        }if(userChatRoomRepository.existsByMemberAndFriend(member, friend)||userChatRoomRepository.existsByMemberAndFriend(friend,member)){
             throw new IllegalArgumentException("이미 생성된 채팅방입니다.");
         }
-
         ChatRoom chatRoom = ChatRoom.builder()
                 .build();
         chatRoomRepository.save(chatRoom);
         userChatRoomRepository.save(UserChatRoom.builder()
                 .member(member)
+                .friend(friend)
                 .chatRoom(chatRoom)
                 .build());
-        userChatRoomRepository.save(UserChatRoom.builder()
-                .member(friend)
-                .chatRoom(chatRoom)
-                .build());
+//        userChatRoomRepository.save(UserChatRoom.builder()
+//                .member(friend)
+//                .chatRoom(chatRoom)
+//                .build());
     }
 
     @Transactional // 채널에 친구 초대
