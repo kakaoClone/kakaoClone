@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -13,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Getter
-public class ChatRoom {
+public class ChatRoom  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,4 +26,6 @@ public class ChatRoom {
     @ManyToMany
     @JoinColumn
     private List<Member> memberList;
+
+
 }

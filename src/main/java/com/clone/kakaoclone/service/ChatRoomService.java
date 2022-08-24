@@ -4,14 +4,12 @@ import com.clone.kakaoclone.dto.request.ChatRoomRequestDto;
 import com.clone.kakaoclone.dto.response.ChatRoomResponseDto;
 import com.clone.kakaoclone.dto.response.CreatedRoomResponseDto;
 import com.clone.kakaoclone.dto.response.ResponseDto;
-import com.clone.kakaoclone.entity.ChatRoom;
-import com.clone.kakaoclone.entity.Member;
-import com.clone.kakaoclone.entity.UserChatRoom;
-import com.clone.kakaoclone.entity.UserDetailsImpl;
+import com.clone.kakaoclone.entity.*;
 import com.clone.kakaoclone.repository.ChatRoomRepository;
 import com.clone.kakaoclone.repository.FriendRepository;
 import com.clone.kakaoclone.repository.MemberRepository;
 import com.clone.kakaoclone.repository.UserChatRoomRepository;
+import com.clone.kakaoclone.socket.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +25,9 @@ public class ChatRoomService {
     private final UserChatRoomRepository userChatRoomRepository;
     private final MemberRepository memberRepository;
     private final FriendRepository friendRepository;
+
+    //추가
+    private final ChatMessageRepository chatMessageRepository;
 
     @Transactional // 빈 채널 생성
     public void createEmptyChatRoom(ChatRoomRequestDto chatRoomRequestDto, UserDetailsImpl userDetails) {
@@ -105,6 +106,8 @@ public class ChatRoomService {
                     .id(chatRoom.getId())
                     .chatRoomName(chatRoom.getChatName())
                     .memberCnt(userChatRoomRepository.findAllByChatRoom(chatRoom).size())
+                    .lastChatTime(chatMessageRepository.findTopByChatRoomIdOrderByCreatedAtDesc(chatRoom.getId()).getCreatedAt())
+                    .lastContent(chatMessageRepository.findTopByChatRoomIdOrderByCreatedAtDesc(chatRoom.getId()).getContent())
                     .build());
         }
         return result;
