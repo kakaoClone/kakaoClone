@@ -2,6 +2,7 @@ package com.clone.kakaoclone.service;
 
 import com.clone.kakaoclone.dto.request.ChatRoomRequestDto;
 import com.clone.kakaoclone.dto.response.ChatRoomResponseDto;
+import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.entity.ChatRoom;
 import com.clone.kakaoclone.entity.Member;
 import com.clone.kakaoclone.entity.UserChatRoom;
@@ -40,19 +41,21 @@ public class ChatRoomService {
     }
 
     @Transactional // 친구와 1:1 채널 생성
-    public void createChatRoomWithFriend(Long friendId,UserDetailsImpl userDetails) {
+    public ResponseDto<?> createChatRoomWithFriend(Long friendId, UserDetailsImpl userDetails) {
         Member member = userDetails.getMember();
         Member friend = memberRepository.findById(friendId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
         if(!friendRepository.existsByMemberAndFromMember(member, friend)){
-            throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
+            //throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
+            return ResponseDto.fail("JUST_FRIEND_INVITE", "친구만 초대할 수 있습니다.");
         }if(userChatRoomRepository.existsByMemberAndFriend(member, friend)||userChatRoomRepository.existsByMemberAndFriend(friend,member)){
-            throw new IllegalArgumentException("이미 생성된 채팅방입니다.");
+            //throw new IllegalArgumentException("이미 생성된 채팅방입니다.");
+            return ResponseDto.fail("ALEADY_CREATE_CHATROOM", "이미 생성된 채팅방입니다.");
         }
         ChatRoom chatRoom = ChatRoom.builder()
                 .build();
         chatRoomRepository.save(chatRoom);
-        userChatRoomRepository.save(UserChatRoom.builder()
+        UserChatRoom userChatRoom = userChatRoomRepository.save(UserChatRoom.builder()
                 .member(member)
                 .friend(friend)
                 .chatRoom(chatRoom)
@@ -61,6 +64,7 @@ public class ChatRoomService {
 //                .member(friend)
 //                .chatRoom(chatRoom)
 //                .build());
+        return ResponseDto.success(userChatRoom);
     }
 
     @Transactional // 채널에 친구 초대

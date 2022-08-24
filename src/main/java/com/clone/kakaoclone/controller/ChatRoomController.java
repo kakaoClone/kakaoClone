@@ -1,6 +1,7 @@
 package com.clone.kakaoclone.controller;
 
 import com.clone.kakaoclone.dto.response.ChatRoomResponseDto;
+import com.clone.kakaoclone.dto.response.ResponseDto;
 import com.clone.kakaoclone.entity.UserDetailsImpl;
 import com.clone.kakaoclone.dto.request.ChatRoomRequestDto;
 import com.clone.kakaoclone.service.ChatRoomService;
@@ -23,8 +24,8 @@ public class ChatRoomController {
     }
 
     @PostMapping("/friend/{friendId}") // 친구와 1:1 채널 생성
-    public void createChatRoomWithFriend(@PathVariable Long friendId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        chatRoomService.createChatRoomWithFriend(friendId, userDetails);
+    public ResponseDto<?> createChatRoomWithFriend(@PathVariable Long friendId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return  chatRoomService.createChatRoomWithFriend(friendId, userDetails);
     }
 
     @PostMapping("/{chatRoomId}/friend/{friendId}") // 채널에 친구초대
