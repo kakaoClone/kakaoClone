@@ -53,7 +53,17 @@ public class ChatRoomService {
         }
         if (userChatRoomRepository.existsByMemberAndFriend(member, friend) || userChatRoomRepository.existsByMemberAndFriend(friend, member)) {
             //throw new IllegalArgumentException("이미 생성된 채팅방입니다.");
-            return ResponseDto.fail("ALEADY_CREATE_CHATROOM", "이미 생성된 채팅방입니다.");
+            // return ResponseDto.fail("ALEADY_CREATE_CHATROOM", "이미 생성된 채팅방입니다.");
+            UserChatRoom userChatRoom = userChatRoomRepository.findByMemberAndAndFriend(member,friend);
+            if(userChatRoom == null) {
+                userChatRoom = userChatRoomRepository.findByMemberAndAndFriend(friend,member);
+            }
+            CreatedRoomResponseDto dto = CreatedRoomResponseDto.builder()
+                    .friendNick(userChatRoom.getFriend().getNickname())
+                    .roomId(userChatRoom.getId())
+                    .build();
+            return ResponseDto.success(dto);
+
         }
         ChatRoom chatRoom = ChatRoom.builder()
                 .chatName(member.getNickname() + ", " + friend.getNickname())
