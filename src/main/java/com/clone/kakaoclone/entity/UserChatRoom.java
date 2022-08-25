@@ -4,30 +4,31 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
 @Entity
 @Getter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-public class ChatMessage extends Timestamped {
+public class UserChatRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String content;
-
-    @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "member_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Member member;
 
-    @ManyToOne
-    @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "chatroom_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ChatRoom chatRoom;
+
+    @JoinColumn
+    @ManyToOne
+    private Member friend;
+
+
 }
