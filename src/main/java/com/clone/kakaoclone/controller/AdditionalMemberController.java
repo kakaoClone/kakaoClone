@@ -43,14 +43,3 @@ public class AdditionalMemberController {
     }
 }
 
-//    @GetMapping("/{memberId}")
-//    public MemberResponseDto memberProfile(@PathVariable Long memberId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-//        return memberService.memberProfile(memberId, userDetails);
-//    }
-//
-//    @PutMapping("")
-//    public void updateProfile(@RequestBody ProfileUpdateRequestDto profileUpdateRequestDto,
-//                              @AuthenticationPrincipal UserDetailsImpl userDetails){
-//        memberService.updateProfile(profileUpdateRequestDto, userDetails);
-//    }
-//}

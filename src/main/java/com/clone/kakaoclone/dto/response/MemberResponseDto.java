@@ -28,9 +28,5 @@ public class MemberResponseDto {
         this.modifiedAt = member.getModifiedAt();
     }
 
-    public MemberResponseDto(String nickname, String username) {
-        this.nickname = nickname;
-        this.username = username;
-    }
 }
 
