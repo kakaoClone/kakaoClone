@@ -85,12 +85,6 @@ public class TokenProvider {
         .build();
 
   }
-
-//  public Authentication getAuthentication(String token) {
-//    UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
-//    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-//  }
-
   public Authentication getAuthentication(String accessToken) {
     Claims claims = parseClaims(accessToken);
 

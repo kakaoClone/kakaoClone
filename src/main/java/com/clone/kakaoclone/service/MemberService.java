@@ -28,16 +28,12 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
-    //  private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
     private final TokenProvider tokenProvider;
 
 
     @Transactional
     public ResponseDto<?> createMember(MemberRequestDto requestDto) {
-//        if (null != isPresentMember(requestDto.getUsername())) {
-//            return ResponseDto.fail("DUPLICATED_USERNAME",
-//                    "중복된 아이디 입니다.");
-//        }
 
         Member member = Member.builder()
                 .username(requestDto.getUsername())

@@ -25,8 +25,6 @@ public class ChatRoomService {
     private final UserChatRoomRepository userChatRoomRepository;
     private final MemberRepository memberRepository;
     private final FriendRepository friendRepository;
-
-    //추가
     private final ChatMessageRepository chatMessageRepository;
 
     @Transactional // 빈 채널 생성
@@ -48,12 +46,11 @@ public class ChatRoomService {
         Member friend = memberRepository.findById(friendId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 친구가 존재하지 않습니다."));
         if (!friendRepository.existsByMemberAndFromMember(member, friend)) {
-            //throw new IllegalArgumentException("친구만 초대할 수 있습니다.");
+
             return ResponseDto.fail("JUST_FRIEND_INVITE", "친구만 초대할 수 있습니다.");
         }
         if (userChatRoomRepository.existsByMemberAndFriend(member, friend) || userChatRoomRepository.existsByMemberAndFriend(friend, member)) {
-            //throw new IllegalArgumentException("이미 생성된 채팅방입니다.");
-            // return ResponseDto.fail("ALEADY_CREATE_CHATROOM", "이미 생성된 채팅방입니다.");
+
             UserChatRoom userChatRoom = userChatRoomRepository.findByMemberAndAndFriend(member,friend);
             if(userChatRoom == null) {
                 userChatRoom = userChatRoomRepository.findByMemberAndAndFriend(friend,member);
@@ -74,10 +71,7 @@ public class ChatRoomService {
                 .friend(friend)
                 .chatRoom(chatRoom)
                 .build());
-//        userChatRoomRepository.save(UserChatRoom.builder()
-//                .member(friend)
-//                .chatRoom(chatRoom)
-//                .build());
+
         CreatedRoomResponseDto createdRoomResponseDto = CreatedRoomResponseDto.builder()
                 .friendNick(friend.getNickname())
                 .roomId(chatRoom.getId())

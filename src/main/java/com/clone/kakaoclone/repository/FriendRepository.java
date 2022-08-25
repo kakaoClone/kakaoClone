@@ -2,7 +2,6 @@ package com.clone.kakaoclone.repository;
 
 import com.clone.kakaoclone.entity.Friend;
 import com.clone.kakaoclone.entity.Member;
-import lombok.Getter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

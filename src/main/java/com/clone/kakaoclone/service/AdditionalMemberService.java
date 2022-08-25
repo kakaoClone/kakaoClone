@@ -26,25 +26,6 @@ public class AdditionalMemberService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-//    @Transactional
-//    public void signup(MemberRequestDto memberRequestDto) {
-//        memberRepository.save(Member.builder()
-//                .username(memberRequestDto.getUsername())
-//                .nickname(memberRequestDto.getNickname())
-//                .password(passwordEncoder.encode(memberRequestDto.getPassword()))
-//                .imgUrl(memberRequestDto.getImgUrl())
-//                .build());
-//    }
-//
-//    @Transactional
-//    public void login(LoginRequestDto loginDto, HttpServletResponse response) {
-//        UsernamePasswordAuthenticationToken authenticationToken =
-//                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
-//        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-//
-//        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
-//        response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
-//    }
 
     @Transactional(readOnly = true) // 모든 유저 검색
     public List<FriendResponseDto> searchAllUser(String nickname) {
@@ -108,39 +89,3 @@ public class AdditionalMemberService {
                 .build());
     }
 }
-
-//    @Transactional(readOnly = true)
-//    public ProfileResponse memberProfile(Long memberId, UserDetailsImpl userDetails) {
-//        Member member = userDetails.getMember();
-//        Member someone = memberRepository.findById(memberId)
-//                .orElseThrow(() -> new IllegalArgumentException("유저가 존재하지 않습니다"));
-//        if (member.getMember_id().equals(someone.getMember_id())) {
-//            return ProfileResponse.builder()
-//                    .id(someone.getMember_id())
-//                    .nickname(someone.getNickname())
-//                    .imgUrl(someone.getImgUrl())
-//                    .isFriend("isMe")
-//                    .build();
-//        } else if (friendRepository.existsByMemberAndFriend(member, someone)) {
-//            return ProfileResponse.builder()
-//                    .id(someone.getMember_id())
-//                    .nickname(someone.getNickname())
-//                    .imgUrl(someone.getImgUrl())
-//                    .isFriend("isFriend")
-//                    .build();
-//        }
-//        return ProfileResponse.builder()
-//                .id(someone.getId())
-//                .nickname(someone.getNickname())
-//                .imgUrl(someone.getImgUrl())
-//                .isFriend("isNotFriend")
-//                .build();
-//    }
-//
-//    @Transactional
-//    public void updateProfile(ProfileUpdateRequestDto profileUpdateRequestDto, UserDetailsImpl userDetails){
-//        Member member = userDetails.getMember();
-//        member.updateProfile(profileUpdateRequestDto.getNickname(), profileUpdateRequestDto.getImgUrl());
-//        memberRepository.save(member);
-//    }
-//}
