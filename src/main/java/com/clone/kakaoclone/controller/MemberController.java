@@ -21,12 +21,12 @@ public class MemberController {
 
 
     //Valid는 유효성 검사
-    @PostMapping("/api/members/signup")
+    @PostMapping("/api/members/signup")//회원 가입
     public ResponseDto<?> signup(@RequestBody @Valid MemberRequestDto requestDto) {
         return memberService.createMember(requestDto);
     }
 
-    @PostMapping("/api/members/login")
+    @PostMapping("/api/members/login")//로그인
     public ResponseDto<?> login(@RequestBody @Valid LoginRequestDto requestDto,
                                 HttpServletResponse response) {
         return memberService.login(requestDto, response);
@@ -37,22 +37,22 @@ public class MemberController {
         return ResponseDto.success("성공");
     }
 
-    @GetMapping("/api/members/check/{username}")
+    @GetMapping("/api/members/check/{username}")//유저 네임 중복확인
     public ResponseDto<?> checkDupId(@PathVariable String username){
         return memberService.checkDupId(username);
     }
 
-    @GetMapping("/api/members/{nickname}")
+    @GetMapping("/api/members/{nickname}")//닉네임 중복확인
     public ResponseDto<?> checkDupNickname(@PathVariable String nickname){
         return memberService.checkDupNickname(nickname);
 
     }
-    @GetMapping("/api/members/find/{memberId}")
+    @GetMapping("/api/members/find/{memberId}")//프로필 보기
     public ResponseDto<?> veiwProfile(@PathVariable Long memberId){
         return memberService.viewProfile(memberId);
 
     }
-    @PutMapping("/api/members/find/{memberId}")
+    @PutMapping("/api/members/find/{memberId}")//프로필 수정
     public ResponseDto<?> editProfile(@PathVariable Long memberId, @RequestBody ProfileRequestDto requestDto){
 
         return memberService.editProfile(memberId, requestDto);
