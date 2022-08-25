@@ -30,7 +30,10 @@ public class ChatMessageController {
                            @Header("Authorization") String token) {
         System.out.println("token : " + token);
         token = token.substring(7);
-        MessageResponseDto messageResponseDto = messageService.addMessage(messageRequestDto, roomId, token);
-        simpleMessageSendingOperations.convertAndSend("/sub/channel/" + roomId, messageResponseDto);
+
+        if(!messageRequestDto.getContent().equals("") && messageRequestDto.getContent() != null) {
+            MessageResponseDto messageResponseDto = messageService.addMessage(messageRequestDto, roomId, token);
+            simpleMessageSendingOperations.convertAndSend("/sub/channel/" + roomId, messageResponseDto);
+        }
     }
 }
