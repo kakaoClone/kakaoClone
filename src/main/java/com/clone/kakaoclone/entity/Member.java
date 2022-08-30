@@ -17,7 +17,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Member extends Timestamped{
+public class Member extends Timestamped {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
@@ -64,7 +65,7 @@ public class Member extends Timestamped{
         return passwordEncoder.matches(password, this.password);
     }
 
-    public void editProfile(ProfileRequestDto requestDto){
+    public void editProfile(ProfileRequestDto requestDto) {
         this.nickname = requestDto.getNickname();
         this.imgUrl = requestDto.getImgUrl();
     }

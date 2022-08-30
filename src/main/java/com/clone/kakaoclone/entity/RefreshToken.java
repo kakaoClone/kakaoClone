@@ -30,4 +30,3 @@ public class RefreshToken extends Timestamped {
         this.value = token;
     }
 }
-

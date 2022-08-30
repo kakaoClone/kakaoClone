@@ -25,4 +25,3 @@ public class AccessDeniedHandlerException implements AccessDeniedHandler {
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
   }
 }
-

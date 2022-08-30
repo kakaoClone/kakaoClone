@@ -42,4 +42,3 @@ public class AdditionalMemberController {
         return additionalMemberService.readAllFriend(userDetails);
     }
 }
-
